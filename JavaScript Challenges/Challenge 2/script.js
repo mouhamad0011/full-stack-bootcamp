@@ -21,3 +21,10 @@ if(Age>=22 && hasDriverLicense && !hasCar)
 let needDriver=false;
 if(Age<18 && !hasDriverLicense && !hasCar)
   needDriver=true;
+let role="admin";
+switch(role){
+    case "admin":console.log("You have read and write access for the data");break;
+    case "user":console.log("You have only read access for the data");break;
+    case "guest":console.log("You have no access for the data");break;
+    default:console.log("User role is not recoginized");
+}
