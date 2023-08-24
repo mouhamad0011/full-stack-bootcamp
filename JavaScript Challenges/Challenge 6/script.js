@@ -23,7 +23,7 @@ function updateClock() {
     console.log(message);
   });*/
   // step 2
-  function simulateNetworkRequest() {
+  /*function simulateNetworkRequest() {
     return new Promise((resolve, reject) => {
       setTimeout(() => {
         if (Math.random() < 0.5) {
@@ -59,6 +59,40 @@ function updateClock() {
       console.log('Fetched Post:', postData);
     } catch (error) {
       console.error('Error:', error);
+    }
+  })();
+  */
+ //step 3
+ async function fetchPosts(postIds) {
+    const promises = postIds.map(postId =>
+      fetch(`https://jsonplaceholder.typicode.com/posts/${postId}`)
+        .then(response => {
+          if (!response.ok) {
+            throw new Error(`Network response was not ok for post ${postId}`);
+          }
+          return response.json();
+        })
+        .catch(error => {
+          throw new Error(`Error fetching post ${postId}: ${error}`);
+        })
+    );
+  
+    return Promise.all(promises);
+  }
+  
+  (async () => {
+    try {
+      const postIds = [1, 2, 3];
+      const posts = await fetchPosts(postIds);
+  
+      console.log("Fetched Posts:", posts);
+      
+      // Sequentially process the fetched posts
+      for (const post of posts) {
+        console.log("Processed Post:", post);
+      }
+    } catch (error) {
+      console.error("Error:", error);
     }
   })();
   
