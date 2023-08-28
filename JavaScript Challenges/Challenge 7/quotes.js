@@ -94,3 +94,41 @@ const quotesArray = [
       "Hell, there are no rules here-- we're trying to accomplish something.",
   },
 ];
+document.addEventListener('DOMContentLoaded', function () {
+  const quotes = document.getElementById("quotes");
+  quotesArray.forEach(quote => {
+    const blockquote = document.createElement('blockquote');
+    const content = document.createElement('p');
+    content.textContent = quote.content;
+
+    const authorDiv = document.createElement('div');
+    authorDiv.className = 'author';
+    authorDiv.innerHTML = `&mdash;<cite>${quote.author}</cite>`;
+
+    blockquote.appendChild(content);
+    blockquote.appendChild(authorDiv);
+    quotes.appendChild(blockquote);
+  });
+
+  document.body.appendChild(quotes);
+});
+const authorBtn=document.getElementById("authorBtn");
+const authorSearch=document.getElementById("authorSearch");
+authorBtn.addEventListener("click",function(){
+  quotes.innerHTML="";
+  quotesArray.forEach(quote => {
+    if(authorSearch.value===quote.author){
+      const blockquote = document.createElement('blockquote');
+    const content = document.createElement('p');
+    content.textContent = quote.content;
+
+    const authorDiv = document.createElement('div');
+    authorDiv.className = 'author';
+    authorDiv.innerHTML = `&mdash;<cite>${quote.author}</cite>`;
+
+    blockquote.appendChild(content);
+    blockquote.appendChild(authorDiv);
+    quotes.appendChild(blockquote);
+    }
+  });
+})
