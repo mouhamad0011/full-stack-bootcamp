@@ -41,4 +41,33 @@ delay(2000).then(() => {
           console.error(error.message);
         }
       })();
+      const urls = [
+        "https://dog.ceo/api/breeds/image/random",
+        "https://dog.ceo/api/breeds/image/random",
+        "https://dog.ceo/api/breeds/image/random"
+      ];
+      
+      async function fetchImages(urls) {
+        try {
+          const fetchPromises = urls.map(url => fetch(url));
+          const responses = await Promise.all(fetchPromises);
+          
+          const responseData = await Promise.all(responses.map(response => response.json()));
+          
+          const imageUrls = responseData.map(data => data.message);
+          return imageUrls;
+        } catch (error) {
+          throw new Error("An error occurred: " + error);
+        }
+      }
+      
+      (async () => {
+        try {
+          const imageUrls = await fetchImages(urls);
+          console.log("Fetched Images:", imageUrls);
+        } catch (error) {
+          console.error(error.message);
+        }
+      })();
+      
       
